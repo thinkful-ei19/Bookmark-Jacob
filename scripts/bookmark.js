@@ -6,13 +6,13 @@ const bookmark = (function() {
     const form = `
     <form class="add-form">
       <label for="title-entry">Title</label>
-      <input type="text" name="title-entry" class="title-entry" placeholder="google">
+      <input type="text" name="title-entry" class="title-entry" placeholder="google" value="google">
       <label for="url-entry">URL</label>
-      <input type="url" name="url-entry" class="url-entry" placeholder="google.com">
+      <input type="url" name="url-entry" class="url-entry" placeholder="google.com" value="http://www.google.com">
       <label for="desc-entry">Description</label>
-      <input type="text" name="desc-entry" class="desc-entry" placeholder="google's home page">
+      <input type="text" name="desc-entry" class="desc-entry" placeholder="google's home page" value="google's home page">
       <label for="star-entry">Stars</label>
-      <input type="text" name="star-entry" class="star-entry" placeholder="5">
+      <input type="text" name="star-entry" class="star-entry" placeholder="5" value="5">
       <button class="submit-bookmark">Submit</button>
   </form>
     `;
@@ -21,6 +21,7 @@ const bookmark = (function() {
 
   function renderAddBtn() {
     const btn = '<button class="add-btn" type="submit">Add Bookmark</button>';
+    return btn;
   }
   
   function addBookMarkBtnHandler() {
@@ -38,10 +39,11 @@ const bookmark = (function() {
       const url = $('.url-entry').val();
       const desc = $('.desc-entry').val();
       const stars = $('.star-entry').val();
+      $('.add-btn-holder').html(renderAddBtn());
+      addBookMarkBtnHandler();
       api.createBookmark(title, url, desc, stars, function(bookmark) {
         store.addBookmark(bookmark);
       });
-      $('.add-btn-holder').html(renderAddBtn());
     });
   }
 
