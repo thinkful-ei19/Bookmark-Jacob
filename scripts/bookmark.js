@@ -1,8 +1,12 @@
+/* global $ */
 'use strict';
 const bookmark = (function() {
   
-  function render() {
+  function addBookMarkHandler() {
+    $('.add-btn').on('submit')
+  }
 
+  function render() {
   }
 
   return {
