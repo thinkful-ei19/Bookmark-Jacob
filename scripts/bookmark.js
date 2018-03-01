@@ -1,4 +1,4 @@
-/* global $ */
+/* global $, api, store*/
 'use strict';
 const bookmark = (function() {
 
@@ -13,7 +13,7 @@ const bookmark = (function() {
       <input type="text" name="desc-entry" class="desc-entry" placeholder="google's home page">
       <label for="star-entry">Stars</label>
       <input type="text" name="star-entry" class="star-entry" placeholder="5">
-      <button class="submit-bookmark" type="submit">Submit</button>
+      <button class="submit-bookmark">Submit</button>
   </form>
     `;
     return form;
@@ -24,14 +24,16 @@ const bookmark = (function() {
   }
   
   function addBookMarkBtnHandler() {
-    $('.add-btn').on('click', function() {
+    $('.add-btn').on('click', function(event) {
+      event.preventDefault();
       $('.add-btn-holder').html(renderAddForm());
     });
   }
 
   function submitNewBookmarkHandler() {
-    $('.submit-bookmark').submit(function(event) {
+    $('.add-btn-holder').on('click', '.submit-bookmark', function(event) {
       event.preventDefault();
+      console.log('submitted');
       const title = $('.title-entry').val();
       const url = $('.url-entry').val();
       const desc = $('.desc-entry').val();
