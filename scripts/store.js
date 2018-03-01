@@ -1,6 +1,15 @@
 'use strict';
 const store = (function() {
-  return {
+  const state = {
+    bookmarks:[],
+    filter:false
+  };
 
+  function addBookmark(bookmark) {
+    state.bookmarks.push(bookmark);
+  }
+
+  return {
+    addBookmark, state
   };
 })();
