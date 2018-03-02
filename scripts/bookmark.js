@@ -52,7 +52,7 @@ const bookmark = (function() {
     }
     if (bookmark.expand) {
       const generatedHTML = `
-        <div class="bookmark-container" data-bookmark-id="${bookmark.id}">
+        <div class="bookmark-container expanded" data-bookmark-id="${bookmark.id}">
           <h2 class="bookmark-title">${bookmark.title}</h2>
           <p>${bookmark.rating}</p>
           <p>${bookmark.desc}</p>
@@ -67,7 +67,7 @@ const bookmark = (function() {
       const generatedHTML = `
         <div class="bookmark-container" data-bookmark-id="${bookmark.id}">
         <h2 class="bookmark-title">${bookmark.title}</h2>
-        <p>${bookmark.rating}</p>
+        <p class="bookmark-rating">${bookmark.rating}</p>
         <button class="delete-btn">-</button>
         <button class="edit-btn">edit</button>
         </div>
@@ -83,6 +83,7 @@ const bookmark = (function() {
   function generateAddForm() {
     const form = `
     <form class="add-form">
+    <div class="add-container">
       <label for="title-entry">Title</label>
       <input type="text" name="title-entry" class="title-entry" placeholder="google" value="google">
       <label for="url-entry">URL</label>
@@ -92,6 +93,7 @@ const bookmark = (function() {
       <label for="star-entry">Stars</label>
       <input type="text" name="star-entry" class="star-entry" placeholder="5" value="5">
       <button class="submit-bookmark">Submit</button>
+    </div>
     </form>
     `;
     return form;
