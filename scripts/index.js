@@ -9,5 +9,6 @@ $(function(){
   bookmark.submitNewBookmarkHandler();
   bookmark.expandBookmarkHandler();
   bookmark.deleteBookmarkHandler();
+  bookmark.minimumRatingHandler();
   bookmark.render();
 });

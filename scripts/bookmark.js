@@ -89,6 +89,20 @@ const bookmark = (function() {
     });
   }
 
+  function getRatingNumFromClick(target) {
+    $(target).closest('.star').data('rating-num');
+  }
+
+  function minimumRatingHandler() {
+    $('.dropdown-content').on('click', event => {
+      console.log(event.currentTarget);
+      const minRating = getRatingNumFromClick(event.currentTarget);
+      store.filter = minRating;
+      store.bookmarks = store.bookmarks.filter(bookmark => bookmark.rating > minRating);
+      render();
+    });
+  }
+
   function deleteBookmarkHandler() {
     $('.bookmark-list').on('click', '.delete-btn', event => {
       event.stopPropagation();
@@ -114,6 +128,6 @@ const bookmark = (function() {
   }
 
   return {
-    render, addBookMarkBtnHandler, submitNewBookmarkHandler, generateBookmark, expandBookmarkHandler, deleteBookmarkHandler
+    render, addBookMarkBtnHandler, submitNewBookmarkHandler, generateBookmark, expandBookmarkHandler, deleteBookmarkHandler, minimumRatingHandler
   };
 })();
