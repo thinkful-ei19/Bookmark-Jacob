@@ -48,7 +48,6 @@ body {
 }
 .edit-form {
     position: relative;
-    z-index: 2;
 }
 
 .bookmark-container {
