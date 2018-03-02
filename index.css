@@ -12,22 +12,36 @@ body {
     width: 45%
 }
 
+.rating-title {
+    font-family:'Lobster','roboto','sans-serif';
+    position: fixed;
+    right: 13.75%;
+    top: 16%;
+}
+
 .add-form input {
     display:block;
 }
 
 .title {
     text-align: center;
+    font-family:'Lobster','roboto','sans-serif';
+    font-size: 4em;
 }
 
 .add-form {
     margin-left: 75px;
 }
 
+.edit-form {
+    position: relative;
+    z-index: 2;
+}
+
 .add-btn {
     position: fixed;
     display: inline-block;
-    left: 200px;
+    left: 12%;
 }
 
 .star-dropdown {
@@ -36,10 +50,10 @@ body {
     font-size: 16px;
 }
 
-.dropdown {
+.rating {
     position: fixed;
     display: inline-block;
-    right: 200px;
+    right: 12%;
 }
 
 .dropdown-content {

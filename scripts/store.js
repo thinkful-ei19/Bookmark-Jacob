@@ -2,7 +2,7 @@
 const store = (function() {
 
   function findById(id) {
-    return this.bookmarks.find(bookmark => bookmark.id === id);
+    return store.bookmarks.find(bookmark => bookmark.id === id);
   }
 
   function findAndDelete(id) {
@@ -10,6 +10,7 @@ const store = (function() {
   }
 
   function findAndUpdate(id, newData) {
+    console.log(id);
     Object.assign(findById(id), newData);
   }
 

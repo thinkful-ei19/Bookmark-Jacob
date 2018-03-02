@@ -11,21 +11,39 @@ const bookmark = (function() {
     });
   }
 
+  function submitEditHandler() {
+    $('.bookmark-list').on('click', '.submit-bookmark', event => {
+      event.preventDefault();
+      const bookmarkId = $(event.currentTarget).closest('.edit-form').closest('.bookmark-container').data('bookmark-id');
+      const title = $('.title-entry').val();
+      const url = $('.url-entry').val();
+      const desc = $('.desc-entry').val();
+      const stars = $('.star-entry').val();
+      const ourData = {title, url, desc, rating:stars};
+      api.updateBookmark(bookmarkId, ourData, function() {
+        store.findAndUpdate(bookmarkId, {title, url, desc, rating:stars, edit:false});
+        render();
+      });
+    });
+  }
+
   function generateBookmark(bookmark) {
     if ('edit' in bookmark) {
       if (bookmark.edit) {
         return `
+        <div class="bookmark-container" data-bookmark-id="${bookmark.id}">
         <form class="edit-form">
           <label for="title-entry">Title</label>
-          <input type="text" name="title-entry" class="title-entry" placeholder="google" value="google">
+          <input type="text" name="title-entry" class="title-entry" placeholder="${bookmark.title}" value="${bookmark.title}">
           <label for="url-entry">URL</label>
-          <input type="url" name="url-entry" class="url-entry" placeholder="google.com" value="http://www.google.com">
+          <input type="url" name="url-entry" class="url-entry" placeholder="${bookmark.url}" value="${bookmark.url}">
           <label for="desc-entry">Description</label>
-          <input type="text" name="desc-entry" class="desc-entry" placeholder="google's home page" value="google's home page">
+          <input type="text" name="desc-entry" class="desc-entry" placeholder="${bookmark.desc}" value="${bookmark.desc}">
           <label for="star-entry">Stars</label>
-          <input type="text" name="star-entry" class="star-entry" placeholder="5" value="5">
+          <input type="text" name="star-entry" class="star-entry" placeholder="${bookmark.rating}" value="${bookmark.rating}">
           <button class="submit-bookmark">Submit</button>
         </form>
+        </div>
         `;
       }
     }
@@ -111,13 +129,10 @@ const bookmark = (function() {
     $('.bookmark-list').on('click', '.bookmark-container', event => {
       const id = $(event.currentTarget).data('bookmark-id');
       const bookmark = store.bookmarks.find(bookmark => bookmark.id === id);
+      if (bookmark.edit) return;
       bookmark.expand = !bookmark.expand;
       render();
     });
-  }
-
-  function getRatingNumFromClick(target) {
-    return $(target).data('rating-num');
   }
 
   function ratingHandler() {
@@ -162,6 +177,7 @@ const bookmark = (function() {
     deleteBookmarkHandler();
     ratingHandler();
     editHandler();
+    submitEditHandler();
   }
 
   return {
