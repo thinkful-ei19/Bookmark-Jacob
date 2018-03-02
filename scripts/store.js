@@ -14,7 +14,7 @@ const store = (function() {
   }
 
   function addBookmark(bookmark) {
-    this.bookmarks.push(decorateBookmark(bookmark));
+    this.bookmarks.unshift(decorateBookmark(bookmark));
   }
 
   function decorateBookmark(bookmark) {

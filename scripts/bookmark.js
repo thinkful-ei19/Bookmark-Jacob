@@ -3,12 +3,12 @@
 const bookmark = (function() {
 
   function generateBookmark(bookmark) {
-    console.log('generating');
+    console.log('generating a bookmark');
     if (bookmark.expand) {
       const generatedHTML = `
         <div class="bookmark-container">
           <h2 class="bookmark-title">${bookmark.title}</h2>
-          <p>${bookmark.stars}</p>
+          <p>${bookmark.rating}</p>
           <p>${bookmark.desc}</p>
           <a href="${bookmark.url}">${bookmark.title} link</a>
         </div>
@@ -20,7 +20,7 @@ const bookmark = (function() {
       const generatedHTML = `
         <div class="bookmark-container">
         <h2 class="bookmark-title">${bookmark.title}</h2>
-        <p>${bookmark.stars}</p>
+        <p>${bookmark.rating}</p>
         </div>
     `;
       return generatedHTML;
@@ -68,11 +68,13 @@ const bookmark = (function() {
       addBookMarkBtnHandler();
       api.createBookmark(title, url, desc, stars, function(bookmark) {
         store.addBookmark(bookmark);
+        render();
       });
     });
   }
 
   function generateBookmarks(bookmarks) {
+    console.log('generating bookmarks...');
     const generatedBookmarks = bookmarks.map(bookmark => generateBookmark(bookmark));
     return generatedBookmarks.join('');
   }

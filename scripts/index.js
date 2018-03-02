@@ -3,6 +3,7 @@
 $(function(){
   api.getBookmarks((bookmarks) => {
     bookmarks.forEach((bookmark) => store.addBookmark(bookmark));
+    bookmark.render();
   });
   bookmark.addBookMarkBtnHandler();
   bookmark.submitNewBookmarkHandler();
