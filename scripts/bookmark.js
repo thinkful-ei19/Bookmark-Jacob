@@ -2,8 +2,13 @@
 'use strict';
 const bookmark = (function() {
 
+  function editHandler() {
+  }
+
   function generateBookmark(bookmark) {
-    console.log('generating a bookmark');
+    if ('visible' in bookmark) {
+      if (!bookmark.visible) return '';
+    }
     if (bookmark.expand) {
       const generatedHTML = `
         <div class="bookmark-container" data-bookmark-id="${bookmark.id}">
@@ -16,8 +21,7 @@ const bookmark = (function() {
     `;
       return generatedHTML;
     }
-    else if (!bookmark.expand) { 
-      console.log("got to decorate conditional");
+    else if (!bookmark.expand) {
       const generatedHTML = `
         <div class="bookmark-container" data-bookmark-id="${bookmark.id}">
         <h2 class="bookmark-title">${bookmark.title}</h2>
@@ -65,7 +69,6 @@ const bookmark = (function() {
   function submitNewBookmarkHandler() {
     $('.add-btn-holder').on('click', '.submit-bookmark', function(event) {
       event.preventDefault();
-      console.log('submitted');
       const title = $('.title-entry').val();
       const url = $('.url-entry').val();
       const desc = $('.desc-entry').val();
@@ -82,7 +85,6 @@ const bookmark = (function() {
   function expandBookmarkHandler() {
     $('.bookmark-list').on('click', '.bookmark-container', event => {
       const id = $(event.currentTarget).data('bookmark-id');
-      console.log(id);
       const bookmark = store.bookmarks.find(bookmark => bookmark.id === id);
       bookmark.expand = !bookmark.expand;
       render();
@@ -90,16 +92,19 @@ const bookmark = (function() {
   }
 
   function getRatingNumFromClick(target) {
-    $(target).closest('.star').data('rating-num');
+    return $(target).data('rating-num');
   }
 
-  function minimumRatingHandler() {
-    $('.dropdown-content').on('click', event => {
-      console.log(event.currentTarget);
-      const minRating = getRatingNumFromClick(event.currentTarget);
+  function ratingHandler() {
+    $('.rating-wrapper').on('click', event => {
+      $(event.currentTarget).siblings().html('<i class="far fa-star star"></i>'); //clear others
+      const minRating = $(event.currentTarget).attr('id');
       store.filter = minRating;
-      store.bookmarks = store.bookmarks.filter(bookmark => bookmark.rating > minRating);
-      render();
+      store.setBookmarkstoHidden(minRating);
+      $(event.currentTarget).prevAll().each(function() {
+        $(this).html('<i class="fas fa-star star"></i>');
+      });
+      $(event.currentTarget).html('<i class="fas fa-star star"></i>');
     });
   }
 
@@ -115,19 +120,24 @@ const bookmark = (function() {
   }
 
   function generateBookmarks(bookmarks) {
-    console.log('generating bookmarks...');
     const generatedBookmarks = bookmarks.map(bookmark => generateBookmark(bookmark));
     return generatedBookmarks.join('');
   }
 
   function render() {
-    console.log(store.bookmarks);
     const bookmarkHTML = generateBookmarks(store.bookmarks);
-    console.log(bookmarkHTML);
     $('.bookmark-list').html(bookmarkHTML);
   }
 
+  function bindHandlers() {
+    addBookMarkBtnHandler();
+    submitNewBookmarkHandler();
+    expandBookmarkHandler();
+    deleteBookmarkHandler();
+    ratingHandler();
+  }
+
   return {
-    render, addBookMarkBtnHandler, submitNewBookmarkHandler, generateBookmark, expandBookmarkHandler, deleteBookmarkHandler, minimumRatingHandler
+    render, bindHandlers, generateBookmark
   };
 })();

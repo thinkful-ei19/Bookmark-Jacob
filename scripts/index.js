@@ -5,10 +5,6 @@ $(function(){
     bookmarks.forEach((bookmark) => store.addBookmark(bookmark));
     bookmark.render();
   });
-  bookmark.addBookMarkBtnHandler();
-  bookmark.submitNewBookmarkHandler();
-  bookmark.expandBookmarkHandler();
-  bookmark.deleteBookmarkHandler();
-  bookmark.minimumRatingHandler();
+  bookmark.bindHandlers();
   bookmark.render();
 });

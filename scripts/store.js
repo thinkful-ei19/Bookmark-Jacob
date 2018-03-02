@@ -22,6 +22,13 @@ const store = (function() {
     return bookmark;
   }
 
+  function setBookmarkstoHidden(minRating) {
+    this.bookmarks
+      .filter(bookmark => bookmark.rating < minRating)
+      .forEach(bookmark => bookmark.visible = false);
+    this.bookmarks.filter(bookmark => bookmark.rating >= minRating).forEach(bookmark => bookmark.visible = true);
+  }
+
   function decorateBookmarks(bookmarks) {
     return bookmarks.forEach(bookmark => decorateBookmark(bookmark));
   }
@@ -44,6 +51,7 @@ const store = (function() {
     decorateBookmarks,
     decorateBookmark,
     setFilter,
-    setFilterOff
+    setFilterOff,
+    setBookmarkstoHidden
   };
 })();
