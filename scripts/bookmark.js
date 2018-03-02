@@ -2,7 +2,32 @@
 'use strict';
 const bookmark = (function() {
 
-  function renderAddForm() {
+  function generateBookmark(bookmark) {
+    console.log('generating');
+    if (bookmark.expand) {
+      const generatedHTML = `
+        <div class="bookmark-container">
+          <h2 class="bookmark-title">${bookmark.title}</h2>
+          <p>${bookmark.stars}</p>
+          <p>${bookmark.desc}</p>
+          <a href="${bookmark.url}">${bookmark.title} link</a>
+        </div>
+    `;
+      return generatedHTML;
+    }
+    else if (!bookmark.expand) { 
+      console.log("got to decorate conditional");
+      const generatedHTML = `
+        <div class="bookmark-container">
+        <h2 class="bookmark-title">${bookmark.title}</h2>
+        <p>${bookmark.stars}</p>
+        </div>
+    `;
+      return generatedHTML;
+    }
+  }
+
+  function generateAddForm() {
     const form = `
     <form class="add-form">
       <label for="title-entry">Title</label>
@@ -19,7 +44,7 @@ const bookmark = (function() {
     return form;
   }
 
-  function renderAddBtn() {
+  function generateAddBtn() {
     const btn = '<button class="add-btn" type="submit">Add Bookmark</button>';
     return btn;
   }
@@ -27,7 +52,7 @@ const bookmark = (function() {
   function addBookMarkBtnHandler() {
     $('.add-btn').on('click', function(event) {
       event.preventDefault();
-      $('.add-btn-holder').html(renderAddForm());
+      $('.add-btn-holder').html(generateAddForm());
     });
   }
 
@@ -39,7 +64,7 @@ const bookmark = (function() {
       const url = $('.url-entry').val();
       const desc = $('.desc-entry').val();
       const stars = $('.star-entry').val();
-      $('.add-btn-holder').html(renderAddBtn());
+      $('.add-btn-holder').html(generateAddBtn());
       addBookMarkBtnHandler();
       api.createBookmark(title, url, desc, stars, function(bookmark) {
         store.addBookmark(bookmark);
@@ -47,11 +72,19 @@ const bookmark = (function() {
     });
   }
 
-  function render(htmlToRender) {
-    $('.bookmark-list').html = htmlToRender;
+  function generateBookmarks(bookmarks) {
+    const generatedBookmarks = bookmarks.map(bookmark => generateBookmark(bookmark));
+    return generatedBookmarks.join('');
+  }
+
+  function render() {
+    console.log(store.bookmarks);
+    const bookmarkHTML = generateBookmarks(store.bookmarks);
+    console.log(bookmarkHTML);
+    $('.bookmark-list').html(bookmarkHTML);
   }
 
   return {
-    render, addBookMarkBtnHandler, submitNewBookmarkHandler
+    render, addBookMarkBtnHandler, submitNewBookmarkHandler, generateBookmark
   };
 })();
