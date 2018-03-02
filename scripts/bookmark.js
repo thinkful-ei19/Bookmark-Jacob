@@ -6,11 +6,12 @@ const bookmark = (function() {
     console.log('generating a bookmark');
     if (bookmark.expand) {
       const generatedHTML = `
-        <div class="bookmark-container">
+        <div class="bookmark-container" data-bookmark-id="${bookmark.id}">
           <h2 class="bookmark-title">${bookmark.title}</h2>
           <p>${bookmark.rating}</p>
           <p>${bookmark.desc}</p>
           <a href="${bookmark.url}">${bookmark.title} link</a>
+          <button class="delete-btn">-</button>
         </div>
     `;
       return generatedHTML;
@@ -18,13 +19,18 @@ const bookmark = (function() {
     else if (!bookmark.expand) { 
       console.log("got to decorate conditional");
       const generatedHTML = `
-        <div class="bookmark-container">
+        <div class="bookmark-container" data-bookmark-id="${bookmark.id}">
         <h2 class="bookmark-title">${bookmark.title}</h2>
         <p>${bookmark.rating}</p>
+        <button class="delete-btn">-</button>
         </div>
     `;
       return generatedHTML;
     }
+  }
+
+  function getBookmarkIdFromElement(target) {
+    return $(target).closest('.bookmark-container').data('bookmark-id');
   }
 
   function generateAddForm() {
@@ -73,6 +79,27 @@ const bookmark = (function() {
     });
   }
 
+  function expandBookmarkHandler() {
+    $('.bookmark-list').on('click', '.bookmark-container', event => {
+      const id = $(event.currentTarget).data('bookmark-id');
+      console.log(id);
+      const bookmark = store.bookmarks.find(bookmark => bookmark.id === id);
+      bookmark.expand = !bookmark.expand;
+      render();
+    });
+  }
+
+  function deleteBookmarkHandler() {
+    $('.bookmark-list').on('click', '.delete-btn', event => {
+      event.stopPropagation();
+      const id = getBookmarkIdFromElement(event.currentTarget);
+      api.deleteBookmark(id, function() {
+        store.findAndDelete(id);
+        render();
+      });
+    });
+  }
+
   function generateBookmarks(bookmarks) {
     console.log('generating bookmarks...');
     const generatedBookmarks = bookmarks.map(bookmark => generateBookmark(bookmark));
@@ -87,6 +114,6 @@ const bookmark = (function() {
   }
 
   return {
-    render, addBookMarkBtnHandler, submitNewBookmarkHandler, generateBookmark
+    render, addBookMarkBtnHandler, submitNewBookmarkHandler, generateBookmark, expandBookmarkHandler, deleteBookmarkHandler
   };
 })();

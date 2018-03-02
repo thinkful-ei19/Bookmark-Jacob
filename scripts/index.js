@@ -7,5 +7,7 @@ $(function(){
   });
   bookmark.addBookMarkBtnHandler();
   bookmark.submitNewBookmarkHandler();
+  bookmark.expandBookmarkHandler();
+  bookmark.deleteBookmarkHandler();
   bookmark.render();
 });
