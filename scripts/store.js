@@ -29,6 +29,14 @@ const store = (function() {
     this.bookmarks.filter(bookmark => bookmark.rating >= minRating).forEach(bookmark => bookmark.visible = true);
   }
 
+  function toggleBookmarktoEdit(bookmarktoEdit) {
+    if (bookmarktoEdit.edit) {
+      bookmarktoEdit.edit = false;
+    } else {
+      bookmarktoEdit.edit = true;
+    }
+  }
+
   function decorateBookmarks(bookmarks) {
     return bookmarks.forEach(bookmark => decorateBookmark(bookmark));
   }
@@ -52,6 +60,7 @@ const store = (function() {
     decorateBookmark,
     setFilter,
     setFilterOff,
-    setBookmarkstoHidden
+    setBookmarkstoHidden,
+    toggleBookmarktoEdit
   };
 })();

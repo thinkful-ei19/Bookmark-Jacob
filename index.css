@@ -6,6 +6,16 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.add-form {
+    position:fixed;
+    left: 5%;
+    width: 45%
+}
+
+.add-form input {
+    display:block;
+}
+
 .title {
     text-align: center;
 }
