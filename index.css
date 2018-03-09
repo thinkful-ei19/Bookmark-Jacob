@@ -13,6 +13,7 @@ body {
     width: 45%;
     border: solid black 3px;
     border-radius: 1.5em;
+    z-index: 1;
 }
 
 .title-entry {
@@ -70,12 +71,21 @@ body {
     position: relative;
 }
 
+.bookmark-title {
+    position: relative;
+    bottom: 30%;
+}
+
 .bookmark-container {
     font-family: 'Poppins', 'Roboto', 'sans-serif';
 }
 
 .bookmark-rating {
-    font-style: bold;
+    font-family: 'Poppins', 'sans-serif';
+    position: relative;
+    bottom: 4em;
+    right: 15em;
+    font-weight: bold;
 }
 
 .add-btn {
@@ -134,9 +144,9 @@ body {
     right: 35%;
     background-color: white;
     border: solid black 2px;
-    width: 40px;
-    height: 40px;
-    bottom: 50px;
+    width: 2em;
+    height: 2em;
+    bottom: 8.1em;
 }
 
 .edit-btn {
@@ -144,9 +154,9 @@ body {
     left: 35%;
     background-color: white;
     border: solid black 2px;
-    width: 40px;
-    height: 40px;
-    bottom: 50px;
+    width: 2em;
+    height: 2em;
+    bottom: 8.1em;
 }
 
 .bookmark-container {
@@ -154,7 +164,7 @@ body {
     margin-right: auto;
     text-align: center;
     width: 90%;
-    height: 8%;
+    height: 3em;
     border-radius: 1em;
     margin-bottom: 5px;
     border: solid black 2px;

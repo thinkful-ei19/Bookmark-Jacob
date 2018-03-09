@@ -149,7 +149,7 @@ const bookmark = (function() {
       const title = $('.title-entry').val();
       if (title === '') return alert('Please enter a title for the bookmark');
       const url = $('.url-entry').val();
-      if (!(url.startsWith('http://') || url.startsWith('https://'))) return alert('Please enter a complete url ie: http(s)://www.example.com');
+      if (!(url.startsWith('http://') || url.startsWith('https://'))) return alert('Please enter a complete url be sure to include http:// ie: http(s)://www.example.com');
       const desc = $('.desc-entry').val();
       const stars = store.addStar;
       $('.add-btn-holder').html(generateAddBtn());
