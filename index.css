@@ -15,6 +15,26 @@ body {
     border-radius: 1.5em;
 }
 
+.title-entry {
+    border: solid black 2px;
+    border-radius: 1.5em;
+}
+
+.url-entry {
+    border: solid black 2px;
+    border-radius: 1.5em;
+}
+
+.desc-entry {
+    border: solid black 2px;
+    border-radius: 1.5em;
+}
+
+.edit-rating {
+    border: solid black 2px;
+    border-radius: 1.5em;
+}
+
 .submit-bookmark {
     width: 100px;
     height: 30px;

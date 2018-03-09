@@ -18,8 +18,10 @@ const bookmark = (function() {
       const title = $('.title-entry').val();
       const url = $('.url-entry').val();
       const desc = $('.desc-entry').val();
-      const stars = $('.star-entry').val();
-      const ourData = {title, url, desc, rating:stars};
+      const stars = store.editStar;
+      let ourData = {};
+      if (desc === '') ourData = {title, url, rating:stars};
+      else ourData = {title, url, desc, rating:stars};
       api.updateBookmark(bookmarkId, ourData, function() {
         store.findAndUpdate(bookmarkId, {title, url, desc, rating:stars, edit:false});
         render();
@@ -39,8 +41,23 @@ const bookmark = (function() {
           <input type="url" name="url-entry" class="url-entry" placeholder="${bookmark.url}" value="${bookmark.url}">
           <label for="desc-entry">Description</label>
           <input type="text" name="desc-entry" class="desc-entry" placeholder="${bookmark.desc}" value="${bookmark.desc}">
-          <label for="star-entry">Stars</label>
-          <input type="text" name="star-entry" class="star-entry" placeholder="${bookmark.rating}" value="${bookmark.rating}">
+          <section class="edit-ratings">
+            <span class="edit-rating-wrapper" id="1">
+              <i class="far fa-star star twoStars"></i>
+              </span>
+              <span class="edit-rating-wrapper" id="2">
+              <i class="far fa-star star twoStars"></i>
+              </span>
+              <span class="edit-rating-wrapper" id="3">
+              <i class="far fa-star star threeStars"></i>
+              </span>
+              <span class="edit-rating-wrapper" id="4">
+              <i class="far fa-star star fourStars"></i>
+              </span>
+              <span class="edit-rating-wrapper" id="5">
+              <i class="far fa-star star fiveStars"></i>
+              </span>
+          </section>
           <button class="submit-bookmark">Submit</button>
         </form>
         </div>
@@ -85,13 +102,28 @@ const bookmark = (function() {
     <form class="add-form">
     <div class="add-container">
       <label for="title-entry">Title</label>
-      <input type="text" name="title-entry" class="title-entry" placeholder="google" value="google">
+      <input type="text" name="title-entry" class="title-entry" placeholder="google" required>
       <label for="url-entry">URL</label>
-      <input type="url" name="url-entry" class="url-entry" placeholder="google.com" value="http://www.google.com">
+      <input type="url" name="url-entry" class="url-entry" placeholder="http://www.google.com">
       <label for="desc-entry">Description</label>
-      <input type="text" name="desc-entry" class="desc-entry" placeholder="google's home page" value="google's home page">
-      <label for="star-entry">Stars</label>
-      <input type="text" name="star-entry" class="star-entry" placeholder="5" value="5">
+      <input type="text" name="desc-entry" class="desc-entry" placeholder="google's home page">
+      <section class="add-ratings">
+      <span class="add-rating-wrapper" id="1">
+        <i class="fas fa-star star oneStar"></i>
+        </span>
+        <span class="add-rating-wrapper" id="2">
+        <i class="fas fa-star star twoStars"></i>
+        </span>
+        <span class="add-rating-wrapper" id="3">
+        <i class="fas fa-star star threeStars"></i>
+        </span>
+        <span class="add-rating-wrapper" id="4">
+        <i class="fas fa-star star fourStars"></i>
+        </span>
+        <span class="add-rating-wrapper" id="5">
+        <i class="fas fa-star star fiveStars"></i>
+        </span>
+      </section>
       <button class="submit-bookmark">Submit</button>
     </div>
     </form>
@@ -115,9 +147,11 @@ const bookmark = (function() {
     $('.add-btn-holder').on('click', '.submit-bookmark', function(event) {
       event.preventDefault();
       const title = $('.title-entry').val();
+      if (title === '') return alert('Please enter a title for the bookmark');
       const url = $('.url-entry').val();
+      if (!(url.startsWith('http://') || url.startsWith('https://'))) return alert('Please enter a complete url ie: http(s)://www.example.com');
       const desc = $('.desc-entry').val();
-      const stars = $('.star-entry').val();
+      const stars = store.addStar;
       $('.add-btn-holder').html(generateAddBtn());
       addBookMarkBtnHandler();
       api.createBookmark(title, url, desc, stars, function(bookmark) {
@@ -151,6 +185,32 @@ const bookmark = (function() {
     });
   }
 
+  function addRatingHandler() {
+    $('.add-btn-holder').on('click', '.add-rating-wrapper', event => {
+      console.log('got to rating');
+      $(event.currentTarget).siblings().html('<i class="far fa-star star"></i>'); //clear others
+      $(event.currentTarget).prevAll().each(function() {
+        $(this).html('<i class="fas fa-star star"></i>');
+      });
+      $(event.currentTarget).html('<i class="fas fa-star star"></i>');
+      store.addStar = ($(event.currentTarget).attr('id'));
+      render();
+    });
+  }
+
+  function editRatingHandler() {
+    $('.bookmark-list').on('click', '.edit-rating-wrapper', event => {
+      console.log('got to rating');
+      store.editStar = ($(event.currentTarget).attr('id'));
+      $(event.currentTarget).siblings().html('<i class="far fa-star star"></i>'); //clear others
+      $(event.currentTarget).prevAll().each(function() {
+        $(this).html('<i class="fas fa-star star"></i>');
+      });
+      $(event.currentTarget).html('<i class="fas fa-star star"></i>');
+      console.log($(event.currentTarget).html());
+    });
+  }
+
   function deleteBookmarkHandler() {
     $('.bookmark-list').on('click', '.delete-btn', event => {
       event.stopPropagation();
@@ -174,12 +234,14 @@ const bookmark = (function() {
 
   function bindHandlers() {
     addBookMarkBtnHandler();
+    addRatingHandler();
     submitNewBookmarkHandler();
     expandBookmarkHandler();
     deleteBookmarkHandler();
     ratingHandler();
     editHandler();
     submitEditHandler();
+    editRatingHandler();
   }
 
   return {

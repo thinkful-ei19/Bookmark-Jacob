@@ -10,7 +10,6 @@ const store = (function() {
   }
 
   function findAndUpdate(id, newData) {
-    console.log(id);
     Object.assign(findById(id), newData);
   }
 
@@ -51,6 +50,8 @@ const store = (function() {
   }
 
   return {
+    editStar: 1,
+    addStar: 5,
     addBookmark,
     bookmarks: [],
     filter: false,
