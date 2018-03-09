@@ -33,7 +33,7 @@ const bookmark = (function() {
     if ('edit' in bookmark) {
       if (bookmark.edit) {
         return `
-        <div class="bookmark-container" data-bookmark-id="${bookmark.id}">
+        <article class="bookmark-container" data-bookmark-id="${bookmark.id}" role="aricle">
         <form class="edit-form">
           <label for="title-entry">Title</label>
           <input type="text" name="title-entry" class="title-entry" placeholder="${bookmark.title}" value="${bookmark.title}">
@@ -60,7 +60,7 @@ const bookmark = (function() {
           </section>
           <button class="submit-bookmark">Submit</button>
         </form>
-        </div>
+        </aricle>
         `;
       }
     }
@@ -69,25 +69,25 @@ const bookmark = (function() {
     }
     if (bookmark.expand) {
       const generatedHTML = `
-        <div class="bookmark-container expanded" data-bookmark-id="${bookmark.id}">
+        <article class="bookmark-container expanded" data-bookmark-id="${bookmark.id}" role="article">
           <h2 class="bookmark-title">${bookmark.title}</h2>
           <p>${bookmark.rating}</p>
           <p>${bookmark.desc}</p>
           <a href="${bookmark.url}">${bookmark.title} link</a>
           <button class="delete-btn">-</button>
           <button class="edit-btn">edit</button>
-        </div>
+        </article>
     `;
       return generatedHTML;
     }
     else if (!bookmark.expand) {
       const generatedHTML = `
-        <div class="bookmark-container" data-bookmark-id="${bookmark.id}">
+        <article class="bookmark-container" data-bookmark-id="${bookmark.id}" role="article">
         <h2 class="bookmark-title">${bookmark.title}</h2>
         <p class="bookmark-rating">${bookmark.rating}</p>
         <button class="delete-btn">-</button>
         <button class="edit-btn">edit</button>
-        </div>
+        </article>
     `;
       return generatedHTML;
     }
@@ -100,7 +100,7 @@ const bookmark = (function() {
   function generateAddForm() {
     const form = `
     <form class="add-form">
-    <div class="add-container">
+    <section class="add-container">
       <label for="title-entry">Title</label>
       <input type="text" name="title-entry" class="title-entry" placeholder="google" required>
       <label for="url-entry">URL</label>
@@ -125,7 +125,7 @@ const bookmark = (function() {
         </span>
       </section>
       <button class="submit-bookmark">Submit</button>
-    </div>
+    </section>
     </form>
     `;
     return form;

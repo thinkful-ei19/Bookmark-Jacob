@@ -95,7 +95,7 @@ body {
     font-family: 'Poppins', 'sans-serif';
     position: relative;
     bottom: 4em;
-    right: 15em;
+    right: 20%;
     font-weight: bold;
 }
 
@@ -162,21 +162,26 @@ body {
     background-color: rgb(172, 22, 15, .8);
     border: solid black 2px;
     border-radius: 2em;
-    width: 2em;
-    height: 2em;
-    bottom: 8.1em;
+    width: 3.5em;
+    height: 2.5em;
+    bottom: 8.5em;
 }
 
 .edit-btn {
     position: relative;
     left: 35%;
-    font-family: 'Lobster', 'sans-serif';
+    font-size: 18px;
+    font-family: 'Poppins', 'sans-serif';
     background-color: rgb(89, 193, 82, .8);
     border: solid black 2px;
     border-radius: 2em;
-    width: 2em;
+    width: 3.5em;
     height: 2em;
-    bottom: 8.1em;
+    bottom: 6.2em;
+}
+
+.bookmark-link {
+    text-align: center;
 }
 
 .bookmark-container {
