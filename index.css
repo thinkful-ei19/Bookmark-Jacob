@@ -4,21 +4,49 @@
 
 body {
     font-family: 'Roboto', sans-serif;
+    background-image: url('http://geekslovebacon.com/wp-content/uploads/2014/01/clean-white-polygon-backgrounds-8.jpg');
+    background-size: 100%;
 }
 
 .add-form {
-    background-color: #c2c2d6;
+    background: rgba(0, 179, 179, 0.7);
     position:fixed;
     left: 5%;
     width: 45%;
     border: solid black 3px;
+    border-radius: 1.5em;
+    z-index: 1;
+}
+
+.add-ratings {
+    position: relative;
+    left: 40%;
+}
+
+.title-entry {
+    border: solid black 2px;
+    border-radius: 1.5em;
+}
+
+.url-entry {
+    border: solid black 2px;
+    border-radius: 1.5em;
+}
+
+.desc-entry {
+    border: solid black 2px;
+    border-radius: 1.5em;
+}
+
+.edit-rating {
+    border: solid black 2px;
     border-radius: 1.5em;
 }
 
 .submit-bookmark {
     width: 100px;
     height: 30px;
-    background-color: #c2c2d6;
+    background: rgba(0, 179, 179, 0.7);
     border: solid black 3px;
     border-radius: 1.5em;
     position: absolute;
@@ -28,6 +56,10 @@ body {
 
 .add-container {
     margin-left: 15px;
+}
+
+.rating {
+    z-index: 1;
 }
 
 .rating-title {
@@ -50,16 +82,25 @@ body {
     position: relative;
 }
 
+.bookmark-title {
+    position: relative;
+    bottom: 30%;
+}
+
 .bookmark-container {
     font-family: 'Poppins', 'Roboto', 'sans-serif';
 }
 
 .bookmark-rating {
-    font-style: bold;
+    font-family: 'Poppins', 'sans-serif';
+    position: relative;
+    bottom: 4em;
+    right: 20%;
+    font-weight: bold;
 }
 
 .add-btn {
-    background-color: #ccccff;
+    background: rgba(0, 179, 179, 0.7);
     width: 200px;
     height: 50px;
     border: solid black 3px;
@@ -68,6 +109,7 @@ body {
     display: inline-block;
     top: 20%;
     left: 12%;
+    z-index: 1;
 }
 
 .star-dropdown {
@@ -80,6 +122,10 @@ body {
     position: fixed;
     display: inline-block;
     right: 12%;
+}
+
+.rating-wrapper {
+    z-index: 1;
 }
 
 .dropdown-content {
@@ -111,22 +157,31 @@ body {
 
 .delete-btn {
     position: relative;
+    font-family: 'Lobster', 'sans-serif';
     right: 35%;
-    background-color: white;
+    background-color: rgb(172, 22, 15, .8);
     border: solid black 2px;
-    width: 40px;
-    height: 40px;
-    bottom: 50px;
+    border-radius: 2em;
+    width: 3.5em;
+    height: 2.5em;
+    bottom: 8.5em;
 }
 
 .edit-btn {
     position: relative;
     left: 35%;
-    background-color: white;
+    font-size: 18px;
+    font-family: 'Poppins', 'sans-serif';
+    background-color: rgb(89, 193, 82, .8);
     border: solid black 2px;
-    width: 40px;
-    height: 40px;
-    bottom: 50px;
+    border-radius: 2em;
+    width: 3.5em;
+    height: 2em;
+    bottom: 6.2em;
+}
+
+.bookmark-link {
+    text-align: center;
 }
 
 .bookmark-container {
@@ -134,11 +189,11 @@ body {
     margin-right: auto;
     text-align: center;
     width: 90%;
-    height: 8%;
+    height: 3em;
     border-radius: 1em;
     margin-bottom: 5px;
     border: solid black 2px;
-    background-color: #ccccff;
+    background: rgba(0, 179, 179, 0.7);
 }
 
 .expanded {
